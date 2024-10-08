@@ -6,7 +6,7 @@ print("¿Como te llamas?",nom)
 nom=input("")
 print("Hola ",nom)
 print("¿En que año nacíste?")
-añocan=int(input())
+añonac=int(input())
 print("¿y cual es el año actual?")
 añoac=int(input())
 edad=añoac-añonac
