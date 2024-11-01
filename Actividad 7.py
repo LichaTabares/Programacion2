@@ -1,37 +1,29 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from skimage import io, color
+from PIL import Image
 
-#Cargar la image desde un archivo jpg
-imagen = io.imread('Imagen gris.jpg')
-#Convertimos la imagen a una matriz
-matriz= np.array(imagen)
-#Mostrar la imagen original y hacer el arreglo para poder mostrar las imágenes una al lado de la otra
+ni='Imagen_gris.jpg'
+
+imagen= Image.open(ni).convert('L')
+
+matriz=np.array(imagen)
+
+filas=len(matriz)
+columnas=len(matriz[0])
+aux=0
 plt.subplot(1,2,1)
-#Usar el mapa de colores 'gray'para visualizar correctamente
-plt.imshow(matriz,cmap='gray')
-plt.title('imagen original')
+plt.imshow(matriz, cmap='gray')
+plt.title("original")
 
-#Voltear la imagen
-matriz_volteada = []
+matriz_volteada=np.array(matriz)
+for i in range(filas):
+    for j in range (int(columnas/2)):
+        aux=matriz_volteada[i][j]
+        matriz_volteada[i][j]=matriz_volteada[i][columnas-1-j]
+        matriz_volteada[i][columnas-1-j]=aux
 
-#Recorremos cada fila
-for i in range (len(matriz)):#len(matriz) nos da el número de filas
-#Hacemos una lista vacia para la fila volteada
-    filas=[]
-#len (matriz[i]) nos da el número de columnas
-    for j in range (len(matriz[i])):
-#Invertimos las filas
-        filas.append(matriz[i][len(matriz[i])-1-j])
-    
-    #Agregamos la fila volteada a la matriz volteada
-    matriz_volteada.append(filas)
-    
-matriz_volteada=np.array(matriz_volteada)
-#Mostrar la imagen volteada y ponerla segunda imagen al lado
 plt.subplot(1,2,2)
 plt.imshow(matriz_volteada, cmap='gray')
-plt.title('imagen volteada')
+plt.title("volteada")
 
-#Mostrar todo
 plt.show()
